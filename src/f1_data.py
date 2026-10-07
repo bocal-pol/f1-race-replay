@@ -352,6 +352,11 @@ def get_driver_colors(session):
 
 def get_circuit_rotation(session):
     circuit = session.get_circuit_info()
+    if circuit is None:
+        # FastF1 renvoie None quand les données de circuit (annotées
+        # manuellement) n'existent pas encore pour cette année/ce circuit
+        # (ex. rounds très récents) — valeur par défaut plutôt que de planter.
+        return 0
     return circuit.rotation
 
 
